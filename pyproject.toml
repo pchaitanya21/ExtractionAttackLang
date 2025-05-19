@@ -1,0 +1,38 @@
+[project]
+name = "data-extraction-experiments"
+version = "0.1.0"
+description = "Project base for running data extraction attacks on multi-lingual data"
+authors = [
+  { name = "Chai", email = "chaitanya.p2001@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+
+dependencies = [
+  "torch",
+  "transformers",
+  "numpy",
+  "tqdm",
+  "zstandard",
+  "datasets",
+  "bitsandbytes",
+  "accelerate",
+  "stanza",
+  "pandas"
+]
+
+[tool.hatch.envs.default]
+
+dependencies = []
+
+[tool.hatch.envs.dev]
+
+dependencies = [
+  "black",
+  "ruff",
+  "pytest"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
