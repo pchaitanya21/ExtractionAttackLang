@@ -27,7 +27,7 @@ def print_best(metric, samples, name1, scores1, name2=None, scores2=None, n=10):
 
 
 
-def parse_swahili(path):
+def parse_lang(path):
     file_content=""
     chunk_size = 10 * 1024 * 1024  # 10 MB
 
