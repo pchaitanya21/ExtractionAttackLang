@@ -78,9 +78,9 @@ def main(args):
                 zlib_entropy = len(zlib.compress(bytes(text, 'utf-8')))
 
                 samples.append(text)
-                scores["XL"].append(p1.cpu().item() if torch.is_tensor(p1) else p1)
-                scores["S"].append(p2.cpu().item() if torch.is_tensor(p2) else p2)
-                scores["Lower"].append(p_lower.cpu().item() if torch.is_tensor(p_lower) else p_lower)
+                scores["XL"].append(p1)
+                scores["S"].append(p2)
+                scores["Lower"].append(p_lower)
                 scores["zlib"].append(zlib_entropy)
             pbar.update(args.batch_size)
 
