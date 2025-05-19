@@ -1,3 +1,27 @@
+import torch
+from datasets import load_dataset
+import numpy as np
+from pprint import pprint, pformat
+import logging
+from helper import parse_lang, print_best, calculate_perplexity
+import argparse
+import numpy as np
+from pprint import pprint
+import sys
+import torch
+import zlib
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
+#for pythia
+from transformers import GPTNeoXForCausalLM, AutoTokenizer
+#for gptneo
+from transformers import GPTNeoForCausalLM, GPT2Tokenizer
+from tqdm import tqdm
+from datasets import load_dataset
+import csv
+import os
+import itertools
+from types import SimpleNamespace
+
 def main(args):
     tokenizer = AutoTokenizer.from_pretrained(args.model1)
     tokenizer.padding_side = "left"
