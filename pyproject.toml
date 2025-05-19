@@ -25,6 +25,13 @@ dependencies = [
 
 dependencies = []
 
+[tool.hatch.scripts]
+
+run1 = "python data_batch1.py"
+run2 = "python data_batch2.py"
+run3 = "python data_batch3.py"
+run4 = "python data_batch4.py"
+
 [tool.hatch.envs.dev]
 
 dependencies = [
