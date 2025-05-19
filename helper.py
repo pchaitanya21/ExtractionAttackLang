@@ -1,4 +1,7 @@
 import os
+import torch
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def get_data_folder():
     folder_path = os.path.join(os.getcwd(), "Data_Extraction_data")
