@@ -37,7 +37,7 @@ def main(args):
     seq_len, input_len = 256, 150
     num_batches = int(np.ceil(args.N / args.batch_size))
     #change this to parse_pilecorpus() for eng runs
-    ds = parse_swahili(args.corpus_path)
+    ds = parse_lang(args.corpus_path)
     with tqdm(total=args.N) as pbar:
         for _ in range(num_batches):
             input_ids, attention_mask = [], []
