@@ -1,6 +1,6 @@
 ## Setup Instructions 
 
-The multilingual data has been stored in the Data_exxtraction_data folder: and there are 4 scripts to split the data into batches, each script runs the multilingual prompts for the Pythia and GPT-Neo Model 
+The multilingual data has been stored in the Data_Extraction_data folder: and there are 4 scripts to split the data into batches, each script runs the multilingual prompts for the Pythia and GPT-Neo Model 
 
 1. Clone the repo:
    ```bash
@@ -11,7 +11,7 @@ The multilingual data has been stored in the Data_exxtraction_data folder: and t
    pip install hatch
 3. Download the data folder Data_Extraction_data from GoogleDrive: https://drive.google.com/drive/folders/1aYdJxkKCMiJwQGaIjQaFnjPRB0Mq32a8?usp=drive_link
    ```bash
-   Data_Extraction_data/
+   ExtractionAttackLang/
    ├── Data_Extraction_data/     ← from Google Drive
    ├── data_run1.py
    ├── data_run2.py
