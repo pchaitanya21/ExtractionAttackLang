@@ -15,14 +15,21 @@ def get_data_folder():
     
     return folder_path
 
+# def calculate_perplexity(sentence, model, tokenizer):
+#     input_ids = torch.tensor(tokenizer.encode(sentence)).unsqueeze(0)
+#     input_ids = input_ids.to(device)
+#     with torch.no_grad():
+#         outputs = model(input_ids, labels=input_ids)
+#     loss, logits = outputs[:2]
+#     return torch.exp(loss)
+    
 def calculate_perplexity(sentence, model, tokenizer):
-    input_ids = torch.tensor(tokenizer.encode(sentence)).unsqueeze(0)
-    input_ids = input_ids.to(device)
+    input_ids = torch.tensor(tokenizer.encode(sentence)).unsqueeze(0).to(device)
     with torch.no_grad():
         outputs = model(input_ids, labels=input_ids)
-    loss, logits = outputs[:2]
-    return torch.exp(loss)
-
+    loss = outputs.loss
+    return torch.exp(loss).item()
+    
 def print_best(metric, samples, name1, scores1, name2=None, scores2=None, n=10):
     """
     Print the `n` best samples according to the given `metric`.
