@@ -9,7 +9,7 @@ The multilingual data has been stored in the Data_exxtraction_data folder: and t
 2. Install Hatch if not installed
    ```bash
    pip install hatch
-3. Download the data folder Data_Extraction_data from GoogleDrive:
+3. Download the data folder Data_Extraction_data from GoogleDrive: https://drive.google.com/drive/folders/1aYdJxkKCMiJwQGaIjQaFnjPRB0Mq32a8?usp=drive_link
    ```bash
    Data_Extraction_data/
    ├── Data_Extraction_data/     ← from Google Drive
