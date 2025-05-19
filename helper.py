@@ -1,3 +1,14 @@
+import os
+
+def get_data_folder():
+    folder_path = os.path.join(os.getcwd(), "Data_Extraction_data")
+
+    if not os.path.exists(folder_path):
+        raise FileNotFoundError(f"Data folder not found at: {folder_path}\n"
+                                "Please make sure 'Data_Extraction_data' exists in the project root.")
+    
+    return folder_path
+
 def calculate_perplexity(sentence, model, tokenizer):
     input_ids = torch.tensor(tokenizer.encode(sentence)).unsqueeze(0)
     input_ids = input_ids.to(device)
