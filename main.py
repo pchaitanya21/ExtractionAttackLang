@@ -87,7 +87,7 @@ def main(args):
     scores = {k: np.asarray(v) for k, v in scores.items()}
     model1_name = args.model1.replace("/", "_")
     model2_name = args.model2.replace("/", "_")
-    sample_test = [s[:200] for s in samples]
+    sample_test = [s[input_len:input_len+50] for s in samples]
     comparison_result = [1 if sample == prompt else 0 for sample, prompt in zip(sample_test, prompt_suffix)]
     memorization = (sum(comparison_result) / len(comparison_result)) * 100
     prompts_list = [item for sublist in prompts_list for item in sublist]
