@@ -3,7 +3,7 @@ from datasets import load_dataset
 import numpy as np
 from pprint import pprint, pformat
 import logging
-import helper
+from helper import parse_lang, print_best, calculate_perplexity
 import argparse
 import numpy as np
 from pprint import pprint
@@ -129,3 +129,35 @@ def main(args):
         f.write(f"======== Percentage of memorization is: ========\n{memorization}")
 
     print("Top results written to", output_txt)
+
+
+if __name__ == "__main__":
+    import os
+    import itertools
+    from types import SimpleNamespace
+
+    folder_path = "/content/drive/MyDrive/Data_Extraction_data"
+
+    corpus_paths = [
+        os.path.join(folder_path, file)
+        for file in os.listdir(folder_path)
+        if file.endswith(".txt")
+    ]
+
+    model_pairs = [
+        ("EleutherAI/pythia-2.8b", "EleutherAI/pythia-1.4b"),
+        ("EleutherAI/gpt-neo-2.7B", "EleutherAI/gpt-neo-1.3B")
+    ]
+
+    for corpus_path, (model1, model2) in itertools.product(corpus_paths, model_pairs):
+        args = SimpleNamespace(
+            N=10000,
+            batch_size=1000,
+            model1=model1,
+            model2=model2,
+            corpus_path=corpus_path,
+            name_tag=f"run_{model1.replace('/', '_')}_and_{model2.replace('/', '_')}_{os.path.basename(corpus_path).replace('.txt', '')}"
+        )
+
+        print(f"Running with: {args.model1} vs {args.model2} on {args.corpus_path}")
+        main(args)
