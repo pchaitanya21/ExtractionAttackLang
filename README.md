@@ -32,5 +32,6 @@ OR if this doesnt work :
    hatch shell
 
 
+6.
    ```bash
    python data_batch1.py/data_batch2.py....
