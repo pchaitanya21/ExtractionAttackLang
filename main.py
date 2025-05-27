@@ -42,23 +42,30 @@ def main(args):
     with tqdm(total=args.N) as pbar:
         for _ in range(num_batches):
             input_ids, attention_mask = [], []
-
+                
             while len(input_ids) < args.batch_size:
                 r = np.random.randint(0, len(ds))
-                prompt = " ".join(ds[r:r+10000].split(" ")[1:-1])
-                prompt_suff = prompt
-                inputs = tokenizer(prompt, return_tensors="pt", max_length=input_len, truncation=True)
-                prompt_suffix.append(prompt_suff)
-                if len(inputs['input_ids'][0]) == input_len:
-                    input_ids.append(inputs['input_ids'][0])
-                    attention_mask.append(inputs['attention_mask'][0])
-
+                chunk = " ".join(ds[r:r+10000].split(" ")[1:-1])   #prompt
+                tokenized_chunk= tokenizer(chunk, return_tensors="pt")
+                token_ids=tokenized_chunk['input_ids'][0]
+                prompt_ids= token_ids[:input_len]
+                
+                if prompt_ids.shape[0] < input_len:   
+                    continue
+                prompt= tokenizer.decode(prompt_ids, skip_special_tokens=True)
+                suffix_ids= token_ids[input_len:input_len+ 50 ]
+                suffix= tokenizer.decode(suffix_ids, skip_special_tokens=True)
+                prompts_list.append(prompt)
+                prompt_suffix.append(suffix)
+                input_ids.append(prompt_ids)
+                attention_mask.append(torch.ones_like(prompt_ids))
+    
             inputs = {
                 'input_ids': torch.stack(input_ids),
                 'attention_mask': torch.stack(attention_mask)
             }
 
-            prompts = tokenizer.batch_decode(inputs['input_ids'], skip_special_tokens=True)
+            
             print("Attention Mask shape:", inputs['attention_mask'].shape)
 
             output_sequences = model1.generate(
@@ -69,8 +76,8 @@ def main(args):
                 top_p=1.0
             )
 
-            texts = tokenizer.batch_decode(output_sequences, skip_special_tokens=True)
-            prompts_list.append(prompts)
+            texts = [tokenizer.decode(seq, skip_special_tokens=True) for seq in output_sequences]
+            
 
             for text in texts:
                 p1 = calculate_perplexity(text, model1, tokenizer)
