@@ -27,11 +27,12 @@ The multilingual data has been stored in the Data_Extraction_data folder: and th
    hatch run run2
    hatch run run3
 
-OR if this doesnt work : 
+6. If this doesnt work : 
    ```bash
    hatch shell
 
 
-6.
+
+7. Then execute each script 
    ```bash
    python data_batch1.py/data_batch2.py....
