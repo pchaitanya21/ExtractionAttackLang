@@ -22,6 +22,7 @@ import os
 import itertools
 from types import SimpleNamespace
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def main(args):
     tokenizer = AutoTokenizer.from_pretrained(args.model1)
     tokenizer.padding_side = "left"
