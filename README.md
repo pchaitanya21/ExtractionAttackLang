@@ -36,3 +36,5 @@ The multilingual data has been stored in the Data_Extraction_data folder: and th
 7. Then execute each script 
    ```bash
    python data_batch1.py/data_batch2.py....
+
+8. Note: For us the 1000 batch size let to RAM problems with the GPU, so we changed it to 50, you could change the batch_size in run_batch.py 
