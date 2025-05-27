@@ -1,7 +1,7 @@
 import os
 import itertools
 from types import SimpleNamespace
-from helper import main  # your main logic
+from main import main  # your main logic
 
 def run_batch(corpus_paths):
     model_pairs = [
