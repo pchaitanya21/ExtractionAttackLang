@@ -15,6 +15,7 @@ from transformers import GPT2Tokenizer, GPT2LMHeadModel
 from transformers import GPTNeoXForCausalLM, AutoTokenizer
 #for gptneo
 from transformers import GPTNeoForCausalLM, GPT2Tokenizer
+from transformers import AutoModelForCausalLM
 from tqdm import tqdm
 from datasets import load_dataset
 import csv
@@ -27,10 +28,10 @@ def main(args):
     tokenizer = AutoTokenizer.from_pretrained(args.model1)
     tokenizer.padding_side = "left"
     tokenizer.pad_token = tokenizer.eos_token
-
-    model1 = GPTNeoXForCausalLM.from_pretrained(args.model1, return_dict=True).to(device)
+    #GPTNeoXForCausalLM
+    model1 = AutoModelForCausalLM.from_pretrained(args.model1, return_dict=True).to(device)
     model1.config.pad_token_id = model1.config.eos_token_id
-    model2 = GPTNeoXForCausalLM.from_pretrained(args.model2, return_dict=True).to(device)
+    model2 = AutoModelForCausalLM.from_pretrained(args.model2, return_dict=True).to(device)
     model2.eval()
 
     samples, prompts_list, prompt_suffix = [], [], []
