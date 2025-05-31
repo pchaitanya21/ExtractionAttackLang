@@ -18,6 +18,15 @@ The multilingual data has been stored in the Data_Extraction_data folder: and th
    ├── helper.py
    ├── run_batch.py
    ├── pyproject.toml
+   ```
+   which can be done by
+   ```
+   cd ExtractionAttackLang
+   pip install hatch gdown
+   gdown --folder https://drive.google.com/drive/folders/1aYdJxkKCMiJwQGaIjQaFnjPRB0Mq32a8
+   ```
+
+
 4. Create the Hatch Environment
    ```bash
    hatch env create
