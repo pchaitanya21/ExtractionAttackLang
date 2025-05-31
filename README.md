@@ -11,7 +11,7 @@ The multilingual data has been stored in the Data_Extraction_data folder: and th
    pip install hatch
 3. Download the data folder Data_Extraction_data from GoogleDrive: https://drive.google.com/drive/folders/1aYdJxkKCMiJwQGaIjQaFnjPRB0Mq32a8?usp=drive_link and place it in the local repo 
    ```
-   pip install hatch gdown
+   pip install gdown
    gdown --folder https://drive.google.com/drive/folders/1aYdJxkKCMiJwQGaIjQaFnjPRB0Mq32a8
    ```
    so the structure should now look like
