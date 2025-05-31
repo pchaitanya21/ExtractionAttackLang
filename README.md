@@ -10,6 +10,11 @@ The multilingual data has been stored in the Data_Extraction_data folder: and th
    ```bash
    pip install hatch
 3. Download the data folder Data_Extraction_data from GoogleDrive: https://drive.google.com/drive/folders/1aYdJxkKCMiJwQGaIjQaFnjPRB0Mq32a8?usp=drive_link and place it in the local repo 
+   ```
+   pip install hatch gdown
+   gdown --folder https://drive.google.com/drive/folders/1aYdJxkKCMiJwQGaIjQaFnjPRB0Mq32a8
+   ```
+   so the structure should now look like
    ```bash
    ExtractionAttackLang/
    ├── Data_Extraction_data/     ← from Google Drive
@@ -19,31 +24,24 @@ The multilingual data has been stored in the Data_Extraction_data folder: and th
    ├── run_batch.py
    ├── pyproject.toml
    ```
-   which can be done by
-   ```
-   cd ExtractionAttackLang
-   pip install hatch gdown
-   gdown --folder https://drive.google.com/drive/folders/1aYdJxkKCMiJwQGaIjQaFnjPRB0Mq32a8
-   ```
 
-
-4. Create the Hatch Environment
+5. Create the Hatch Environment
    ```bash
    hatch env create
-5. Run the Scripts via Hatch
+6. Run the Scripts via Hatch
    ```bash
    hatch run run1
    hatch run run2
    hatch run run3
 
-6. If this doesnt work : 
+7. If this doesnt work : 
    ```bash
    hatch shell
 
 
 
-7. Then execute each script 
+8. Then execute each script 
    ```bash
    python data_batch1.py/data_batch2.py....
 
-8. Note: For us the 1000 batch size let to RAM problems with the GPU, so we changed it to 50, you could change the batch_size in run_batch.py 
+9. Note: For us the 1000 batch size let to RAM problems with the GPU, so we changed it to 50, you could change the batch_size in run_batch.py 
