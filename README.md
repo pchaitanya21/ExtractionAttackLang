@@ -25,10 +25,8 @@ The multilingual data has been stored in the Data_Extraction_data folder: and th
    ├── pyproject.toml
    ```
 
-5. Create the Hatch Environment
-   ```bash
-   hatch env create
-6. Run the Scripts via Hatch
+
+5. Run the Scripts via Hatch
    ```bash
    hatch run run1
    hatch run run2
