@@ -93,7 +93,9 @@ def main(args):
                 scores["zlib"].append(zlib_entropy)
                 
             pbar.update(args.batch_size)
-    del inputs, output_sequences, texts         
+    del inputs, output_sequences, texts, ds   
+    if args.model1 =="EleutherAI/gpt-neo-2.7B":
+        os.remove(args.corpus_path)
     scores = {k: np.asarray(v) for k, v in scores.items()}
     model1_name = args.model1.replace("/", "_")
     model2_name = args.model2.replace("/", "_")
