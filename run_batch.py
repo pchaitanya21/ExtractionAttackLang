@@ -1,4 +1,5 @@
 import os
+import gc 
 import itertools
 from types import SimpleNamespace
 from main import main  # your main logic
@@ -21,3 +22,7 @@ def run_batch(corpus_paths):
 
         print(f"Running with: {args.model1} vs {args.model2} on {args.corpus_path}")
         main(args)
+
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
