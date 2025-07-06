@@ -60,7 +60,7 @@ def main(args):
                 prompt_suffix.append(suffix)
                 input_ids.append(prompt_ids)
                 attention_mask.append(torch.ones_like(prompt_ids))
-    
+
             inputs = {
                 'input_ids': torch.stack(input_ids),
                 'attention_mask': torch.stack(attention_mask)
@@ -91,8 +91,9 @@ def main(args):
                 scores["S"].append(p2)
                 scores["Lower"].append(p_lower)
                 scores["zlib"].append(zlib_entropy)
+                
             pbar.update(args.batch_size)
-
+    del inputs, output_sequences, texts         
     scores = {k: np.asarray(v) for k, v in scores.items()}
     model1_name = args.model1.replace("/", "_")
     model2_name = args.model2.replace("/", "_")
@@ -102,7 +103,7 @@ def main(args):
     prompts_list = [item for sublist in prompts_list for item in sublist]
 
     print("Memorization is:", memorization)
-
+    
     output_csv = f'output_scores_{model1_name}_{model2_name}_{args.name_tag}.csv'
     with open(output_csv, 'w', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=['sample', 'prompt', 'suffix', 'memorized', 'PPL_XL', 'PPL_S', 'PPL_Lower', 'Zlib'])
@@ -138,5 +139,6 @@ def main(args):
         f.write(f"======== Percentage of memorization is: ========\n{memorization}")
 
     print("Top results written to", output_txt)
-
+    
+    del samples, prompts_list, prompt_suffix
 
