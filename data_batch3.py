@@ -6,5 +6,5 @@ import os
 
 folder = get_data_folder()
 files = sorted([f for f in os.listdir(folder) if f.endswith(".txt")])
-paths = [os.path.join(folder, f) for f in files[7:11]]
+paths = [os.path.join(folder, f) for f in files[0:5]]
 run_batch(paths)
