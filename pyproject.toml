@@ -18,7 +18,8 @@ dependencies = [
   "bitsandbytes",
   "accelerate",
   "stanza",
-  "pandas"
+  "pandas",
+  "gdown"
 ]
 
 [tool.hatch.envs.default]
