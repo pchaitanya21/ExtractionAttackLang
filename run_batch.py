@@ -13,7 +13,7 @@ def run_batch(corpus_paths):
     for corpus_path, (model1, model2) in itertools.product(corpus_paths, model_pairs):
         args = SimpleNamespace(
             N=10000,
-            batch_size=50,
+            batch_size=30,
             model1=model1,
             model2=model2,
             corpus_path=corpus_path,
