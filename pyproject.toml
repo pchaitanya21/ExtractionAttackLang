@@ -19,6 +19,7 @@ dependencies = [
   "accelerate",
   "stanza",
   "pandas",
+  "scikit-learn",
   "gdown"
 ]
 
@@ -31,6 +32,7 @@ run1 = "python data_batch1.py"
 run2 = "python data_batch2.py"
 run3 = "python data_batch3.py"
 run4 = "python data_batch4.py"
+run-new-exp = "python new_exp.py"
 
 [tool.hatch.envs.dev]
 
