@@ -6,16 +6,18 @@ from types import SimpleNamespace
 from new_main import main 
 
 def run_batch(corpus_paths):
-    # Pair Format: (Target Model, Reference Model)
-    # Reference model should be same family but smallest size (e.g. Pythia-70m)
     model_pairs = [
-        # Pythia Family
+        # --- PHASE 1 & 2: The Control Models (The Pile) ---
         ("EleutherAI/pythia-2.8b", "EleutherAI/pythia-70m"),
         ("EleutherAI/pythia-1.4b", "EleutherAI/pythia-70m"),
-        
-        # GPT-Neo Family (Ref: 125M)
         ("EleutherAI/gpt-neo-2.7B", "EleutherAI/gpt-neo-125M"),
-        ("EleutherAI/gpt-neo-1.3B", "EleutherAI/gpt-neo-125M")
+        
+        # --- PHASE 3: Modern Generalization Models ---
+        # 1. Swahili Specialist (Trained on Inkuba-Mono)
+        ("lelapa/InkubaLM-0.4B", "EleutherAI/pythia-70m"),
+        
+        # 2. Finnish Specialist (Trained on 50B Finnish tokens)
+        ("LumiOpen/Llama-Poro-2-8B-base", "EleutherAI/pythia-70m")
     ]
 
     for corpus_path, (tgt, ref) in itertools.product(corpus_paths, model_pairs):
