@@ -10,14 +10,14 @@ def run_batch(corpus_paths):
         # --- PHASE 1 & 2: The Control Models (The Pile) ---
         ("EleutherAI/pythia-2.8b", "EleutherAI/pythia-70m"),
         ("EleutherAI/pythia-1.4b", "EleutherAI/pythia-70m"),
-        ("EleutherAI/gpt-neo-2.7B", "EleutherAI/gpt-neo-125M"),
+        ("EleutherAI/gpt-neo-2.7B", "EleutherAI/gpt-neo-125M")
         
         # --- PHASE 3: Modern Generalization Models ---
         # 1. Swahili Specialist (Trained on Inkuba-Mono)
-        ("lelapa/InkubaLM-0.4B", "EleutherAI/pythia-70m"),
+        # ("lelapa/InkubaLM-0.4B", "EleutherAI/pythia-70m"),
         
-        # 2. Finnish Specialist (Trained on 50B Finnish tokens)
-        ("LumiOpen/Llama-Poro-2-8B-base", "EleutherAI/pythia-70m")
+        # # 2. Finnish Specialist (Trained on 50B Finnish tokens)
+        # ("LumiOpen/Llama-Poro-2-8B-base", "EleutherAI/pythia-70m")
     ]
 
     for corpus_path, (tgt, ref) in itertools.product(corpus_paths, model_pairs):
