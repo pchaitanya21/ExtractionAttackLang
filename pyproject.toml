@@ -20,7 +20,8 @@ dependencies = [
   "stanza",
   "pandas",
   "scikit-learn",
-  "gdown"
+  "gdown", 
+  "huggingface_hub"
 ]
 
 [tool.hatch.envs.default]
