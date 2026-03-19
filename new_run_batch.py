@@ -1,44 +1,62 @@
 import os
 import gc 
 import torch
-import itertools
 from types import SimpleNamespace
+from datasets import load_dataset
 from new_main import main 
 
-def run_batch(corpus_paths):
-    model_pairs = [
-        # --- PHASE 1 & 2: The Control Models (The Pile) ---
-        ("EleutherAI/pythia-2.8b", "EleutherAI/pythia-70m"),
-        ("EleutherAI/pythia-1.4b", "EleutherAI/pythia-70m"),
-        ("EleutherAI/gpt-neo-2.7B", "EleutherAI/gpt-neo-125M")
-        
-        # --- PHASE 3: Modern Generalization Models ---
-        # 1. Swahili Specialist (Trained on Inkuba-Mono)
-        # ("lelapa/InkubaLM-0.4B", "EleutherAI/pythia-70m"),
-        
-        # # 2. Finnish Specialist (Trained on 50B Finnish tokens)
-        # ("LumiOpen/Llama-Poro-2-8B-base", "EleutherAI/pythia-70m")
+def get_training_samples(lang, n_samples=1000):
+    """Streams actual training data for the specialized models."""
+    samples = []
+    if lang == "swahili":
+        print(">>> Streaming Swahili data from lelapa/Inkuba-Mono...")
+        ds = load_dataset("lelapa/Inkuba-Mono", split="train", streaming=True)
+    elif lang == "finnish":
+        print(">>> Streaming Finnish data from FineWeb-2 (subset: fi)...")
+        ds = load_dataset("HuggingFaceFW/fineweb-2", "fi", split="train", streaming=True)
+    
+    # Collect samples that are long enough to be useful
+    for entry in ds:
+        text = entry['text']
+        if len(text.split()) > 250: # Ensure document is long enough for prompt+suffix
+            samples.append(text)
+        if len(samples) >= n_samples:
+            break
+    return samples
+
+def run_phase3_specialized():
+    # Defined Experiment Pairs: (Target, Reference, Language)
+    experiments = [
+        ("lelapa/InkubaLM-0.4B", "EleutherAI/pythia-410m", "swahili"),
+        ("LumiOpen/Llama-Poro-2-8B-base", "meta-llama/Llama-3.1-8B", "finnish")
     ]
 
-    for corpus_path, (tgt, ref) in itertools.product(corpus_paths, model_pairs):
+    for tgt, ref, lang in experiments:
+        print(f"\n{'='*60}")
+        print(f"TARGET: {tgt} | REF: {ref} | LANG: {lang.upper()}")
+        print(f"{'='*60}")
+
+        # 1. Fetch actual training data
+        raw_data = get_training_samples(lang, n_samples=500) # Lowered for testing speed
+
         args = SimpleNamespace(
-            N=2000, # Reduced N for speed, increase for final paper
-            batch_size=10, # Lower batch size for dual-model loading
+            N=len(raw_data), 
+            batch_size=2, # Keep low for 8B models to avoid VRAM OOM
             model_target=tgt,
             model_ref=ref,
-            corpus_path=corpus_path,
-            name_tag=os.path.basename(corpus_path).replace('.txt', '')
+            corpus_data=raw_data, # Passing data directly
+            name_tag=f"phase3_native_{lang}"
         )
 
-        print(f"\n>>> EXPERIMENT: {args.model_target} (Target) vs {args.model_ref} (Ref)")
-        print(f">>> DATA: {args.corpus_path}")
-        
         try:
             main(args)
         except Exception as e:
             print(f"Error running {tgt}: {e}")
         
-        # Cleanup to prevent VRAM OOM
+        # Cleanup
         gc.collect()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
+
+if __name__ == "__main__":
+    run_phase3_specialized()
