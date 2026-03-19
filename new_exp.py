@@ -1,4 +1,4 @@
-from run_batch import run_specialized_phase
+from run_batch_new import run_specialized_phase
 
 if __name__ == "__main__":
     print("🚀 Starting Phase 3: Specialized Language Memorization Experiments")
